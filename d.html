@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Details</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="fonts/icon/css/ts.css" />
+    <style>
+      :root {
+        --wild-blue-yonder: rgba(102, 103, 143, 1);
+        --dark-navy: rgba(12, 13, 37, 1);
+        --line-color: #ddd;
+        --bg-grey: #f0f0f4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      @font-face {
+        font-family: "Cera Pro";
+        src: url("/fonts/Cera\ Pro\ Medium.otf") format("truetype"),
+          url("/fonts/Cera\ Pro\ Light.otf") format("truetype"),
+          url("/fonts/Cera\ Pro\ Bold.otf.otf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      html,
+      body {
+        margin: 0 auto;
+        padding: 0;
+        font-family: "Cera Pro";
+        height: 840px;
+        max-width: 600px;
+        position: relative;
+      }
+
+      .watermark {
+        background-image: url("/assets/watermark.png");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center center;
+        position: absolute;
+        inset: 0;
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      .px-16 {
+        padding: 0 16px;
+      }
+      .mx-16 {
+        margin: 0 16px;
+      }
+      .mb-30 {
+        margin-bottom: 30px;
+      }
+      .mb-42 {
+        margin-bottom: 42px;
+      }
+      .mt-16{
+          margin-top: 16px;
+      }
+      .mt-30 {
+        margin-top: 30px;
+      }
+      .gap-4 {
+        gap: 4px;
+      }
+      .gap-20 {
+        gap: 20px;
+      }
+      .gap-40 {
+        gap: 40px;
+      }
+      .text-8 {
+        font-size: 8px;
+      }
+      .text-10{
+          font-size: 10px;
+      }
+
+      .border-x-1 {
+        border-left: 1px solid var(--line-color);
+        border-right: 1px solid var(--line-color);
+      }
+
+      .d-flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .d-flex-start {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+      }
+      .d-flex-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      header {
+        background: rgba(243, 243, 243, 1);
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .vertical-list-item {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        color: var(--wild-blue-yonder);
+        text-align: right;
+        font-size: 10px;
+        font-weight: medium;
+      }
+      .vertical-list-item span {
+        color: var(--dark-navy);
+        text-align: right;
+        font-size: 12px;
+        font-weight: medium;
+      }
+
+      .vertical-list-item-header {
+        font-size: 12px;
+      }
+      .vertical-list-item-header span {
+        font-size: 14px;
+      }
+
+      .main-container {
+        padding: 15px 30px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero p {
+        color: var(--dark-navy);
+        font-size: 10px;
+        font-weight: 300;
+        margin: 4px 0;
+      }
+      .hero > p:first-child {
+        font-size: 14px;
+        font-style: normal;
+        margin: 0 0 8px;
+      }
+
+      .title {
+        width: 100%;
+        padding: 8px;
+        border-left: 3px red solid;
+        background: var(--bg-grey);
+      }
+      .title p {
+        color: var(--dark-navy);
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      table {
+        width: 100%;
+        border-spacing: 0;
+        margin-top: 16px;
+      }
+      thead {
+        background: var(--bg-grey);
+        color: var(--dark-navy);
+        font-size: 10px;
+        font-weight: 700;
+        text-align: left;
+        padding: 8px;
+      }
+      th,
+      td {
+        padding: 8px;
+      }
+      td {
+        color: var(--dark-navy);
+        font-size: 10px;
+        font-weight: 300;
+        background: white;
+        border-bottom: 1px solid var(--line-color);
+      }
+      .firt-td-50 td:first-child {
+        max-width: 50px;
+      }
+      .total-price {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 250px;
+        align-self: end;
+        background: var(--bg-grey);
+        border-bottom: red solid 3px;
+        border-right: red solid 3px;
+        padding: 8px;
+        color: var(--dark-navy);
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .total-price p {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0;
+      }
+      .total-price span {
+        font-weight: 700;
+      }
+
+      .warning-container {
+        background: var(--bg-grey);
+        border-right: 1px red solid;
+        display: flex;
+        align-items: center;
+      }
+      .warning-container p {
+        color: var(--dark-navy);
+        font-size: 10px;
+        font-weight: 500;
+        margin: 0;
+        padding: 0 10px;
+        width: 100%;
+      }
+      .warning-icon {
+        background: red;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      ul{
+          padding: 0;
+      }
+      li{
+          margin: 2px 0 2px 17px;
+          font-size: 10px;
+      }
+      .remove-mark{
+          list-style: none;
+          margin-left: 0px;
+      }
+
+      .td-icon i{
+          padding: 2px;
+          font-size: 8px;
+          border-radius: 100px;
+          color: white;
+      }
+      .bg-red i{
+          background: red;
+      }
+      .bg-green i{
+          background: rgb(61, 206, 71);
+      }
+      .bg-orange i{
+          background: rgb(255, 145, 0);
+      }
+
+      footer {
+        width: 100%;
+        padding: 8px 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      footer p {
+        color: white;
+        text-align: right;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="watermark"></div>
+
+    <header>
+      <div>
+        <img src="/assets/main_logo.svg" alt="logo" />
+      </div>
+
+      <div class="d-flex-between gap-20">
+        <p class="vertical-list-item vertical-list-item-header">
+          Invoice Number:
+          <span>TS432451</span>
+        </p>
+
+        <p class="vertical-list-item vertical-list-item-header">
+          Booking Date:
+          <span>Wed, May 28</span>
+        </p>
+      </div>
+    </header>
+
+    <div class="main-container">
+        <div class="title">
+            <p>Book Now Pay Later Payment Paln</p>
+        </div>
+
+        <div class="d-flex-start gap-40">
+            <p class="vertical-list-item">
+                Payment Method:
+                <span>Weekly</span>
+            </p>
+
+            <p class="vertical-list-item">
+                Installments:
+                <span>8 Installments</span>
+            </p>
+
+            <p class="vertical-list-item">
+                Down Payment:
+                <span>CAD $890.23</span>
+            </p>
+
+            <p class="vertical-list-item">
+                Weekly:
+                <span>CAD $1126.55</span>
+            </p>
+        </div>
+
+        <div class="warning-container mb-30">
+            <div class="warning-icon">
+                <img src="/assets/icons/info.svg" alt="info">
+            </div>
+
+            <p>Down Payment is non-refundable. Total amount must be paid in full a week prior to your departure date.</p>
+        </div>
+
+        <div class="title">
+            <p>Payment Details</p>
+        </div>
+
+        <table class="price-details-containr">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Card Number</th>
+                    <th>Card Holder Name</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>**** **** **** 9282</td>
+                    <td>Marco Reus</td>
+                    <td>2023, May 30</td>
+                    <td>CAD $709.3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            <p>
+                Total Paid:
+                <span>CAD $709.3</span>
+            </p>
+
+            <p>
+                Outstanding Balance:
+                <span>CAD $1709.3</span>
+            </p>
+        </div>
+
+        <div class="title mt-30">
+            <p>Payment Schedule</p>
+        </div>
+
+        <table class="price-details-containr">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2023, May 30</td>
+                    <td>CAD $709.3</td>
+                    <td class="td-icon bg-green">
+                        <i class="icon-thick-check-1"></i>
+                        Paid
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>2023, May 30</td>
+                    <td>CAD $709.3</td>
+                    <td class="td-icon bg-red">
+                        <i class="icon-cross-md-soft"></i>
+                        Not Paid
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>2023, May 30</td>
+                    <td>CAD $709.3</td>
+                    <td class="td-icon bg-orange">
+                        <i class="icon-ml-cal"></i>
+                        Scheduled
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>2023, May 30</td>
+                    <td>CAD $709.3</td>
+                    <td class="td-icon bg-orange">
+                        <i class="icon-ml-cal"></i>
+                        Scheduled
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="display:flex; flex-direction: column;">
+            <div>+1 855 606 0606</div>
+            <div class="">&#9679</div>
+            <div>customercare@tripsupport.com</div>
+            <div class="">&#9679</div>
+            <div>www.tripsupport.ca</div>
+        </div>
+    </div>
+    
+    <footer>
+       
+        <p>2/4</p>
+    </footer>
+  </body>
+</html>
